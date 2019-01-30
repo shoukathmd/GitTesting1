@@ -1,0 +1,2724 @@
+---
+genPolicy: "None"
+openAPISpec: null
+generators:
+- type: "empty_value"
+  assertions:
+  - "@StatusCode != 200"
+  - "@StatusCode != 401"
+  - "@StatusCode != 404"
+  - "@StatusCode != 500"
+  tags:
+  - "Fuzz"
+  severity: "Major"
+  database: null
+  inactive: true
+  matches: []
+  authors: ""
+  abacResources: null
+- type: "negative_number"
+  assertions:
+  - "@StatusCode != 401"
+  - "@StatusCode != 404"
+  tags:
+  - "OWASP - OTG-BUSLOGIC-001"
+  - "Fuzz"
+  severity: "Major"
+  database: null
+  inactive: true
+  matches: []
+  authors: ""
+  abacResources: null
+- type: "customize"
+  assertions: []
+  tags: null
+  severity: null
+  database: null
+  inactive: false
+  matches:
+  - name: null
+    value: null
+    methods: null
+    denyRoles: null
+    allowRoles: null
+    pathPatterns: null
+    resourceSamples: "Get:/api/v1/alerts[Accept=application/json,Content-Type=application/json]\n\
+      Post:/api/v1/accounts[Accept: application/json,Content-Type: application/json]"
+    queryParams: null
+    bodyProperties: null
+  authors: ""
+  abacResources: null
+- type: "anonymous_invalid"
+  assertions:
+  - "@StatusCode == 401 OR @StatusCode == 403"
+  tags:
+  - "OWASP - OTG-AUTHN-002"
+  - "FX Top 10 - API Vulnerability"
+  - "Non-Intrusive"
+  severity: "Major"
+  database: null
+  inactive: true
+  matches:
+  - name: null
+    value: null
+    methods: null
+    denyRoles: null
+    allowRoles: null
+    pathPatterns: ""
+    resourceSamples: null
+    queryParams: null
+    bodyProperties: null
+  authors: ""
+  abacResources: null
+- type: "auth_invalid"
+  assertions:
+  - "@StatusCode == 401 OR @StatusCode == 403"
+  tags:
+  - "OWASP A2"
+  - "OWASP A5"
+  - "OWASP A6"
+  - "OWASP A7"
+  - "[PCI DSS 3.0] 6.5.8"
+  - "[PCI DSS 3.0] 6.5.10"
+  - "OTG-AUTHN-004"
+  - "FX Top 10 - API Vulnerability"
+  - "Non-Intrusive"
+  severity: "Major"
+  database: null
+  inactive: false
+  matches:
+  - name: null
+    value: null
+    methods: null
+    denyRoles: null
+    allowRoles: null
+    pathPatterns: ""
+    resourceSamples: null
+    queryParams: null
+    bodyProperties: null
+  authors: ""
+  abacResources: null
+- type: "auth_invalid_empty"
+  assertions:
+  - "@StatusCode == 401 OR @StatusCode == 403"
+  tags:
+  - "OWASP A2"
+  - "OWASP A5"
+  - "OWASP A6"
+  - "OWASP A7"
+  - "[PCI DSS 3.0] 6.5.8"
+  - "[PCI DSS 3.0] 6.5.10"
+  - "OTG-AUTHN-004"
+  - "FX Top 10 - API Vulnerability"
+  - "Non-Intrusive"
+  severity: "Major"
+  database: null
+  inactive: true
+  matches:
+  - name: null
+    value: null
+    methods: null
+    denyRoles: null
+    allowRoles: null
+    pathPatterns: ""
+    resourceSamples: null
+    queryParams: null
+    bodyProperties: null
+  authors: ""
+  abacResources: null
+- type: "auth_invalid_sql"
+  assertions:
+  - "@StatusCode == 401 OR @StatusCode == 403"
+  tags:
+  - "OWASP A1"
+  - "[PCI DSS 3.0] 6.5.1"
+  - "OTG-AUTHN-004"
+  - "FX Top 10 - API Vulnerability"
+  - "Non-Intrusive"
+  - "Injection"
+  severity: "Major"
+  database: null
+  inactive: true
+  matches:
+  - name: null
+    value: null
+    methods: null
+    denyRoles: null
+    allowRoles: null
+    pathPatterns: ""
+    resourceSamples: null
+    queryParams: null
+    bodyProperties: null
+  authors: ""
+  abacResources: null
+- type: "rbac"
+  assertions:
+  - "Disallowed:@StatusCode == 401 OR @StatusCode == 403"
+  - "Allowed:@StatusCode != 401 AND @StatusCode != 403"
+  tags:
+  - "OWASP - OTG-IDENT-001 "
+  - "FX Top 10 - API Vulnerability"
+  - "Endpoint_Access_Control"
+  severity: "Major"
+  database: null
+  inactive: true
+  matches:
+  - name: "ROLE_ADMIN,ROLE_PM,ROLE_USER"
+    value: "AutoMap"
+    methods: null
+    denyRoles: null
+    allowRoles: null
+    pathPatterns: null
+    resourceSamples: "Get:/api/v1/orgs/:Allowed[ROLE_ADMIN]\nPost:/api/v1/accounts/:Allowed[ROLE_ADMIN,ROLE_PM]"
+    queryParams: null
+    bodyProperties: null
+  authors: ""
+  abacResources: null
+- type: "abac"
+  assertions:
+  - "Create:@StatusCode == 200 AND @Response.errors == false"
+  - "Disallowed:@StatusCode == 401 OR @StatusCode == 403 OR @Response.errors == true"
+  tags:
+  - "FX Top 10 - API Vulnerability"
+  - "Data_Access_Control"
+  severity: "Major"
+  database: null
+  inactive: true
+  matches:
+  - name: null
+    value: null
+    methods: null
+    denyRoles: "UserB,UserC"
+    allowRoles: "UserA"
+    pathPatterns: null
+    resourceSamples: null
+    queryParams: null
+    bodyProperties: null
+  authors: ""
+  abacResources:
+  - id: "ff808181689d2cf101689eb5645d0c1e"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2c0bae"
+    resourceName: "Branch"
+    initScriptName: "BranchCreateUserAInitAbac"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/branches"
+    typeThreeCreateEndpoint: null
+    createBody: "{\n  \"access\" : \"{{@Random}}\",\n  \"atmAtBranch\" : \"{{@Random}}\"\
+      ,\n  \"branchMediatedServiceName\" : \"{{@Random}}\",\n  \"branchName\" : \"\
+      {{@Random}}\",\n  \"branchType\" : \"{{@Random}}\",\n  \"createdBy\" : \"\"\
+      ,\n  \"createdDate\" : \"\",\n  \"customerSegment\" : \"{{@Random}}\",\n  \"\
+      faxNumber\" : \"{{@Random}}\",\n  \"id\" : \"\",\n  \"inactive\" : false,\n\
+      \  \"modifiedBy\" : \"\",\n  \"modifiedDate\" : \"\",\n  \"version\" : \"\"\n\
+      }"
+    deleteEndpoint: "DELETE:/api/v1/branches/{{@BranchCreateUserAInitAbac_Response.data.id}}"
+    validations:
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/branches/{{@BranchCreateUserAInitAbac_Response.data.id}}"
+      path: "GET:/api/v1/branches/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/branches/{{@BranchCreateUserAInitAbac_Response.data.id}}"
+      path: "GET:/api/v1/branches/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "DELETE:/api/v1/branches/{{@BranchCreateUserAInitAbac_Response.data.id}}"
+      path: "DELETE:/api/v1/branches/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "DELETE:/api/v1/branches/{{@BranchCreateUserAInitAbac_Response.data.id}}"
+      path: "DELETE:/api/v1/branches/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    scripts: []
+    lock: false
+    enumValues: null
+  - id: "ff808181689d2cf101689eb564680c1f"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2c0bae"
+    resourceName: "Org"
+    initScriptName: "OrgCreateUserAInitAbac"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/orgs"
+    typeThreeCreateEndpoint: null
+    createBody: "{\n  \"billingEmail\" : \"{{@Faker.internet.emailAddress}}\",\n \
+      \ \"company\" : \"{{@Faker.company.name}}\",\n  \"createdBy\" : \"\",\n  \"\
+      createdDate\" : \"\",\n  \"description\" : \"{{@Random}}\",\n  \"id\" : \"\"\
+      ,\n  \"inactive\" : false,\n  \"location\" : \"{{@Random}}\",\n  \"modifiedBy\"\
+      \ : \"\",\n  \"modifiedDate\" : \"\",\n  \"name\" : \"{{@Random}}\",\n  \"orgPlan\"\
+      \ : \"BASIC\",\n  \"orgType\" : \"PERSONAL\",\n  \"version\" : \"\"\n}"
+    deleteEndpoint: "DELETE:/api/v1/orgs/{{@OrgCreateUserAInitAbac_Response.data.id}}"
+    validations:
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/orgs/find-by-name/{{@OrgCreateUserAInitAbac_Response.data.name}}"
+      path: "GET:/api/v1/orgs/find-by-name/{name}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/orgs/find-by-name/{{@OrgCreateUserAInitAbac_Response.data.name}}"
+      path: "GET:/api/v1/orgs/find-by-name/{name}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/orgs/{{@OrgCreateUserAInitAbac_Response.data.id}}"
+      path: "GET:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/orgs/{{@OrgCreateUserAInitAbac_Response.data.id}}"
+      path: "GET:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "PUT:/api/v1/orgs/{{@OrgCreateUserAInitAbac_Response.data.id}}"
+      path: "PUT:/api/v1/orgs/{id}"
+      body: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\":\"\
+        {{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+        :\"{{@Random}}\",\"id\":\"{{@OrgCreateUserAInitAbac_Response.data.id}}\",\"\
+        inactive\":false,\"location\":\"{{@Random}}\",\"modifiedBy\":\"\",\"modifiedDate\"\
+        :\"\",\"name\":\"{{@Random}}\",\"orgPlan\":\"BASIC\",\"orgType\":\"PERSONAL\"\
+        ,\"version\":\"\"}"
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "PUT:/api/v1/orgs/{{@OrgCreateUserAInitAbac_Response.data.id}}"
+      path: "PUT:/api/v1/orgs/{id}"
+      body: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\":\"\
+        {{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+        :\"{{@Random}}\",\"id\":\"{{@OrgCreateUserAInitAbac_Response.data.id}}\",\"\
+        inactive\":false,\"location\":\"{{@Random}}\",\"modifiedBy\":\"\",\"modifiedDate\"\
+        :\"\",\"name\":\"{{@Random}}\",\"orgPlan\":\"BASIC\",\"orgType\":\"PERSONAL\"\
+        ,\"version\":\"\"}"
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "DELETE:/api/v1/orgs/{{@OrgCreateUserAInitAbac_Response.data.id}}"
+      path: "DELETE:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "DELETE:/api/v1/orgs/{{@OrgCreateUserAInitAbac_Response.data.id}}"
+      path: "DELETE:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/orgs/{{@OrgCreateUserAInitAbac_Response.data.id}}/users"
+      path: "GET:/api/v1/orgs/{id}/users"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/orgs/{{@OrgCreateUserAInitAbac_Response.data.id}}/users"
+      path: "GET:/api/v1/orgs/{id}/users"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    scripts: []
+    lock: false
+    enumValues: null
+  - id: "ff808181689d2cf101689eb564760c20"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2c0bae"
+    resourceName: "PrimaryAccount"
+    initScriptName: "PrimaryAccountCreateUserAInitAbac"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/primary-account/primary-account"
+    typeThreeCreateEndpoint: null
+    createBody: "{\n  \"accountBalance\" : \"{{@RandomInteger}}\",\n  \"accountNumber\"\
+      \ : \"{{@RandomInteger}}\",\n  \"accountType\" : \"CREDIT\",\n  \"createdBy\"\
+      \ : \"\",\n  \"createdDate\" : \"\",\n  \"id\" : \"\",\n  \"inactive\" : false,\n\
+      \  \"modifiedBy\" : \"\",\n  \"modifiedDate\" : \"\",\n  \"version\" : \"\"\n\
+      }"
+    deleteEndpoint: "DELETE:/api/v1/primary-account/primary-account/{{@PrimaryAccountCreateUserAInitAbac_Response.data.id}}"
+    validations:
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/primary-account/primary-account/{{@PrimaryAccountCreateUserAInitAbac_Response.data.id}}"
+      path: "GET:/api/v1/primary-account/primary-account/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/primary-account/primary-account/{{@PrimaryAccountCreateUserAInitAbac_Response.data.id}}"
+      path: "GET:/api/v1/primary-account/primary-account/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "DELETE:/api/v1/primary-account/primary-account/{{@PrimaryAccountCreateUserAInitAbac_Response.data.id}}"
+      path: "DELETE:/api/v1/primary-account/primary-account/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "DELETE:/api/v1/primary-account/primary-account/{{@PrimaryAccountCreateUserAInitAbac_Response.data.id}}"
+      path: "DELETE:/api/v1/primary-account/primary-account/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    scripts: []
+    lock: false
+    enumValues: null
+  - id: "ff808181689d2cf101689eb5647f0c21"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2c0bae"
+    resourceName: "RecentTransaction"
+    initScriptName: "RecentTransactionCreateUserAInitAbac"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/recenttransactions"
+    typeThreeCreateEndpoint: null
+    createBody: "{\n  \"confirmed\" : false,\n  \"createdBy\" : \"\",\n  \"createdDate\"\
+      \ : \"\",\n  \"description\" : \"{{@Random}}\",\n  \"id\" : \"\",\n  \"inactive\"\
+      \ : false,\n  \"location\" : \"{{@Random}}\",\n  \"modifiedBy\" : \"\",\n  \"\
+      modifiedDate\" : \"\",\n  \"transactionType\" : \"CHECK\",\n  \"version\" :\
+      \ \"\"\n}"
+    deleteEndpoint: "DELETE:/api/v1/recenttransactions/{{@RecentTransactionCreateUserAInitAbac_Response.data.id}}"
+    validations:
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/recenttransactions/{{@RecentTransactionCreateUserAInitAbac_Response.data.id}}"
+      path: "GET:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/recenttransactions/{{@RecentTransactionCreateUserAInitAbac_Response.data.id}}"
+      path: "GET:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "DELETE:/api/v1/recenttransactions/{{@RecentTransactionCreateUserAInitAbac_Response.data.id}}"
+      path: "DELETE:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "DELETE:/api/v1/recenttransactions/{{@RecentTransactionCreateUserAInitAbac_Response.data.id}}"
+      path: "DELETE:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    scripts: []
+    lock: false
+    enumValues: null
+  - id: "ff808181689d2cf101689eb564860c22"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2c0bae"
+    resourceName: "Users"
+    initScriptName: "UsersCreateUserAInitAbac"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/users/enterprise-sign-up"
+    typeThreeCreateEndpoint: null
+    createBody: "{\n  \"accountNonExpired\" : false,\n  \"accountNonLocked\" : false,\n\
+      \  \"company\" : \"{{@Faker.company.name}}\",\n  \"createdBy\" : \"\",\n  \"\
+      createdDate\" : \"\",\n  \"credentialsNonExpired\" : false,\n  \"email\" : \"\
+      {{@Faker.internet.emailAddress}}\",\n  \"enabled\" : false,\n  \"id\" : \"\"\
+      ,\n  \"inactive\" : false,\n  \"jobTitle\" : \"{{@Faker.job.title}}\",\n  \"\
+      location\" : \"{{@Random}}\",\n  \"modifiedBy\" : \"\",\n  \"modifiedDate\"\
+      \ : \"\",\n  \"name\" : \"{{@Random}}\",\n  \"password\" : \"{{@Random}}\",\n\
+      \  \"username\" : \"{{@Faker.name.username}}\",\n  \"version\" : \"\"\n}"
+    deleteEndpoint: null
+    validations: []
+    scripts: []
+    lock: false
+    enumValues: null
+- type: "abact2"
+  assertions:
+  - "Create:@StatusCode == 200 OR @StatusCode == 201"
+  - "Disallowed:@StatusCode == 401 OR @StatusCode == 403 OR @Response.errors == true"
+  tags:
+  - "FX Top 10 - API Vulnerability"
+  - "Data_Access_Control"
+  severity: "Major"
+  database: null
+  inactive: true
+  matches:
+  - name: null
+    value: null
+    methods: null
+    denyRoles: "UserB,UserC"
+    allowRoles: "UserA"
+    pathPatterns: null
+    resourceSamples: null
+    queryParams: null
+    bodyProperties: null
+  authors: ""
+  abacResources:
+  - id: "ff808181689d2cf101689eb565390c23"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2c0baf"
+    resourceName: "OrgOrgplanFree"
+    initScriptName: "OrgOrgplanFreeCreateUserAInitAbact2"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/orgs"
+    typeThreeCreateEndpoint: null
+    createBody: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\"\
+      :\"{{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+      :\"{{@Random}}\",\"id\":\"\",\"inactive\":false,\"location\":\"{{@Random}}\"\
+      ,\"modifiedBy\":\"\",\"modifiedDate\":\"\",\"name\":\"{{@Random}}\",\"orgPlan\"\
+      :\"FREE\",\"orgType\":\"PERSONAL\",\"version\":\"\"}"
+    deleteEndpoint: "DELETE:/api/v1/orgs/{{@OrgOrgplanFreeCreateUserAInitAbact2_Response.data.id}}"
+    validations:
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/orgs/find-by-name/{{@OrgOrgplanFreeCreateUserAInitAbact2_Response.data.name}}"
+      path: "GET:/api/v1/orgs/find-by-name/{name}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/orgs/find-by-name/{{@OrgOrgplanFreeCreateUserAInitAbact2_Response.data.name}}"
+      path: "GET:/api/v1/orgs/find-by-name/{name}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgplanFreeCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgplanFreeCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "PUT:/api/v1/orgs/{{@OrgOrgplanFreeCreateUserAInitAbact2_Response.data.id}}"
+      path: "PUT:/api/v1/orgs/{id}"
+      body: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\":\"\
+        {{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+        :\"{{@Random}}\",\"id\":\"{{@OrgOrgplanFreeCreateUserAInitAbact2_Response.data.id}}\"\
+        ,\"inactive\":false,\"location\":\"{{@Random}}\",\"modifiedBy\":\"\",\"modifiedDate\"\
+        :\"\",\"name\":\"{{@Random}}\",\"orgPlan\":\"BASIC\",\"orgType\":\"PERSONAL\"\
+        ,\"version\":\"\"}"
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "PUT:/api/v1/orgs/{{@OrgOrgplanFreeCreateUserAInitAbact2_Response.data.id}}"
+      path: "PUT:/api/v1/orgs/{id}"
+      body: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\":\"\
+        {{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+        :\"{{@Random}}\",\"id\":\"{{@OrgOrgplanFreeCreateUserAInitAbact2_Response.data.id}}\"\
+        ,\"inactive\":false,\"location\":\"{{@Random}}\",\"modifiedBy\":\"\",\"modifiedDate\"\
+        :\"\",\"name\":\"{{@Random}}\",\"orgPlan\":\"BASIC\",\"orgType\":\"PERSONAL\"\
+        ,\"version\":\"\"}"
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "DELETE:/api/v1/orgs/{{@OrgOrgplanFreeCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "DELETE:/api/v1/orgs/{{@OrgOrgplanFreeCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgplanFreeCreateUserAInitAbact2_Response.data.id}}/users"
+      path: "GET:/api/v1/orgs/{id}/users"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgplanFreeCreateUserAInitAbact2_Response.data.id}}/users"
+      path: "GET:/api/v1/orgs/{id}/users"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    scripts: []
+    lock: false
+    enumValues: null
+  - id: "ff808181689d2cf101689eb565400c24"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2c0baf"
+    resourceName: "OrgOrgplanPro"
+    initScriptName: "OrgOrgplanProCreateUserAInitAbact2"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/orgs"
+    typeThreeCreateEndpoint: null
+    createBody: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\"\
+      :\"{{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+      :\"{{@Random}}\",\"id\":\"\",\"inactive\":false,\"location\":\"{{@Random}}\"\
+      ,\"modifiedBy\":\"\",\"modifiedDate\":\"\",\"name\":\"{{@Random}}\",\"orgPlan\"\
+      :\"PRO\",\"orgType\":\"PERSONAL\",\"version\":\"\"}"
+    deleteEndpoint: "DELETE:/api/v1/orgs/{{@OrgOrgplanProCreateUserAInitAbact2_Response.data.id}}"
+    validations:
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/orgs/find-by-name/{{@OrgOrgplanProCreateUserAInitAbact2_Response.data.name}}"
+      path: "GET:/api/v1/orgs/find-by-name/{name}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/orgs/find-by-name/{{@OrgOrgplanProCreateUserAInitAbact2_Response.data.name}}"
+      path: "GET:/api/v1/orgs/find-by-name/{name}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgplanProCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgplanProCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "PUT:/api/v1/orgs/{{@OrgOrgplanProCreateUserAInitAbact2_Response.data.id}}"
+      path: "PUT:/api/v1/orgs/{id}"
+      body: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\":\"\
+        {{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+        :\"{{@Random}}\",\"id\":\"{{@OrgOrgplanProCreateUserAInitAbact2_Response.data.id}}\"\
+        ,\"inactive\":false,\"location\":\"{{@Random}}\",\"modifiedBy\":\"\",\"modifiedDate\"\
+        :\"\",\"name\":\"{{@Random}}\",\"orgPlan\":\"BASIC\",\"orgType\":\"PERSONAL\"\
+        ,\"version\":\"\"}"
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "PUT:/api/v1/orgs/{{@OrgOrgplanProCreateUserAInitAbact2_Response.data.id}}"
+      path: "PUT:/api/v1/orgs/{id}"
+      body: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\":\"\
+        {{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+        :\"{{@Random}}\",\"id\":\"{{@OrgOrgplanProCreateUserAInitAbact2_Response.data.id}}\"\
+        ,\"inactive\":false,\"location\":\"{{@Random}}\",\"modifiedBy\":\"\",\"modifiedDate\"\
+        :\"\",\"name\":\"{{@Random}}\",\"orgPlan\":\"BASIC\",\"orgType\":\"PERSONAL\"\
+        ,\"version\":\"\"}"
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "DELETE:/api/v1/orgs/{{@OrgOrgplanProCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "DELETE:/api/v1/orgs/{{@OrgOrgplanProCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgplanProCreateUserAInitAbact2_Response.data.id}}/users"
+      path: "GET:/api/v1/orgs/{id}/users"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgplanProCreateUserAInitAbact2_Response.data.id}}/users"
+      path: "GET:/api/v1/orgs/{id}/users"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    scripts: []
+    lock: false
+    enumValues: null
+  - id: "ff808181689d2cf101689eb565480c25"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2c0baf"
+    resourceName: "OrgOrgplanTeam"
+    initScriptName: "OrgOrgplanTeamCreateUserAInitAbact2"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/orgs"
+    typeThreeCreateEndpoint: null
+    createBody: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\"\
+      :\"{{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+      :\"{{@Random}}\",\"id\":\"\",\"inactive\":false,\"location\":\"{{@Random}}\"\
+      ,\"modifiedBy\":\"\",\"modifiedDate\":\"\",\"name\":\"{{@Random}}\",\"orgPlan\"\
+      :\"TEAM\",\"orgType\":\"PERSONAL\",\"version\":\"\"}"
+    deleteEndpoint: "DELETE:/api/v1/orgs/{{@OrgOrgplanTeamCreateUserAInitAbact2_Response.data.id}}"
+    validations:
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/orgs/find-by-name/{{@OrgOrgplanTeamCreateUserAInitAbact2_Response.data.name}}"
+      path: "GET:/api/v1/orgs/find-by-name/{name}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/orgs/find-by-name/{{@OrgOrgplanTeamCreateUserAInitAbact2_Response.data.name}}"
+      path: "GET:/api/v1/orgs/find-by-name/{name}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgplanTeamCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgplanTeamCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "PUT:/api/v1/orgs/{{@OrgOrgplanTeamCreateUserAInitAbact2_Response.data.id}}"
+      path: "PUT:/api/v1/orgs/{id}"
+      body: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\":\"\
+        {{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+        :\"{{@Random}}\",\"id\":\"{{@OrgOrgplanTeamCreateUserAInitAbact2_Response.data.id}}\"\
+        ,\"inactive\":false,\"location\":\"{{@Random}}\",\"modifiedBy\":\"\",\"modifiedDate\"\
+        :\"\",\"name\":\"{{@Random}}\",\"orgPlan\":\"BASIC\",\"orgType\":\"PERSONAL\"\
+        ,\"version\":\"\"}"
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "PUT:/api/v1/orgs/{{@OrgOrgplanTeamCreateUserAInitAbact2_Response.data.id}}"
+      path: "PUT:/api/v1/orgs/{id}"
+      body: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\":\"\
+        {{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+        :\"{{@Random}}\",\"id\":\"{{@OrgOrgplanTeamCreateUserAInitAbact2_Response.data.id}}\"\
+        ,\"inactive\":false,\"location\":\"{{@Random}}\",\"modifiedBy\":\"\",\"modifiedDate\"\
+        :\"\",\"name\":\"{{@Random}}\",\"orgPlan\":\"BASIC\",\"orgType\":\"PERSONAL\"\
+        ,\"version\":\"\"}"
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "DELETE:/api/v1/orgs/{{@OrgOrgplanTeamCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "DELETE:/api/v1/orgs/{{@OrgOrgplanTeamCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgplanTeamCreateUserAInitAbact2_Response.data.id}}/users"
+      path: "GET:/api/v1/orgs/{id}/users"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgplanTeamCreateUserAInitAbact2_Response.data.id}}/users"
+      path: "GET:/api/v1/orgs/{id}/users"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    scripts: []
+    lock: false
+    enumValues: null
+  - id: "ff808181689d2cf101689eb5654f0c26"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2c0baf"
+    resourceName: "OrgOrgplanBasic"
+    initScriptName: "OrgOrgplanBasicCreateUserAInitAbact2"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/orgs"
+    typeThreeCreateEndpoint: null
+    createBody: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\"\
+      :\"{{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+      :\"{{@Random}}\",\"id\":\"\",\"inactive\":false,\"location\":\"{{@Random}}\"\
+      ,\"modifiedBy\":\"\",\"modifiedDate\":\"\",\"name\":\"{{@Random}}\",\"orgPlan\"\
+      :\"BASIC\",\"orgType\":\"PERSONAL\",\"version\":\"\"}"
+    deleteEndpoint: "DELETE:/api/v1/orgs/{{@OrgOrgplanBasicCreateUserAInitAbact2_Response.data.id}}"
+    validations:
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/orgs/find-by-name/{{@OrgOrgplanBasicCreateUserAInitAbact2_Response.data.name}}"
+      path: "GET:/api/v1/orgs/find-by-name/{name}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/orgs/find-by-name/{{@OrgOrgplanBasicCreateUserAInitAbact2_Response.data.name}}"
+      path: "GET:/api/v1/orgs/find-by-name/{name}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgplanBasicCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgplanBasicCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "PUT:/api/v1/orgs/{{@OrgOrgplanBasicCreateUserAInitAbact2_Response.data.id}}"
+      path: "PUT:/api/v1/orgs/{id}"
+      body: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\":\"\
+        {{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+        :\"{{@Random}}\",\"id\":\"{{@OrgOrgplanBasicCreateUserAInitAbact2_Response.data.id}}\"\
+        ,\"inactive\":false,\"location\":\"{{@Random}}\",\"modifiedBy\":\"\",\"modifiedDate\"\
+        :\"\",\"name\":\"{{@Random}}\",\"orgPlan\":\"BASIC\",\"orgType\":\"PERSONAL\"\
+        ,\"version\":\"\"}"
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "PUT:/api/v1/orgs/{{@OrgOrgplanBasicCreateUserAInitAbact2_Response.data.id}}"
+      path: "PUT:/api/v1/orgs/{id}"
+      body: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\":\"\
+        {{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+        :\"{{@Random}}\",\"id\":\"{{@OrgOrgplanBasicCreateUserAInitAbact2_Response.data.id}}\"\
+        ,\"inactive\":false,\"location\":\"{{@Random}}\",\"modifiedBy\":\"\",\"modifiedDate\"\
+        :\"\",\"name\":\"{{@Random}}\",\"orgPlan\":\"BASIC\",\"orgType\":\"PERSONAL\"\
+        ,\"version\":\"\"}"
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "DELETE:/api/v1/orgs/{{@OrgOrgplanBasicCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "DELETE:/api/v1/orgs/{{@OrgOrgplanBasicCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgplanBasicCreateUserAInitAbact2_Response.data.id}}/users"
+      path: "GET:/api/v1/orgs/{id}/users"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgplanBasicCreateUserAInitAbact2_Response.data.id}}/users"
+      path: "GET:/api/v1/orgs/{id}/users"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    scripts: []
+    lock: false
+    enumValues: null
+  - id: "ff808181689d2cf101689eb565560c27"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2c0baf"
+    resourceName: "OrgOrgplanBusiness"
+    initScriptName: "OrgOrgplanBusinessCreateUserAInitAbact2"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/orgs"
+    typeThreeCreateEndpoint: null
+    createBody: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\"\
+      :\"{{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+      :\"{{@Random}}\",\"id\":\"\",\"inactive\":false,\"location\":\"{{@Random}}\"\
+      ,\"modifiedBy\":\"\",\"modifiedDate\":\"\",\"name\":\"{{@Random}}\",\"orgPlan\"\
+      :\"BUSINESS\",\"orgType\":\"PERSONAL\",\"version\":\"\"}"
+    deleteEndpoint: "DELETE:/api/v1/orgs/{{@OrgOrgplanBusinessCreateUserAInitAbact2_Response.data.id}}"
+    validations:
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/orgs/find-by-name/{{@OrgOrgplanBusinessCreateUserAInitAbact2_Response.data.name}}"
+      path: "GET:/api/v1/orgs/find-by-name/{name}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/orgs/find-by-name/{{@OrgOrgplanBusinessCreateUserAInitAbact2_Response.data.name}}"
+      path: "GET:/api/v1/orgs/find-by-name/{name}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgplanBusinessCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgplanBusinessCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "PUT:/api/v1/orgs/{{@OrgOrgplanBusinessCreateUserAInitAbact2_Response.data.id}}"
+      path: "PUT:/api/v1/orgs/{id}"
+      body: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\":\"\
+        {{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+        :\"{{@Random}}\",\"id\":\"{{@OrgOrgplanBusinessCreateUserAInitAbact2_Response.data.id}}\"\
+        ,\"inactive\":false,\"location\":\"{{@Random}}\",\"modifiedBy\":\"\",\"modifiedDate\"\
+        :\"\",\"name\":\"{{@Random}}\",\"orgPlan\":\"BASIC\",\"orgType\":\"PERSONAL\"\
+        ,\"version\":\"\"}"
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "PUT:/api/v1/orgs/{{@OrgOrgplanBusinessCreateUserAInitAbact2_Response.data.id}}"
+      path: "PUT:/api/v1/orgs/{id}"
+      body: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\":\"\
+        {{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+        :\"{{@Random}}\",\"id\":\"{{@OrgOrgplanBusinessCreateUserAInitAbact2_Response.data.id}}\"\
+        ,\"inactive\":false,\"location\":\"{{@Random}}\",\"modifiedBy\":\"\",\"modifiedDate\"\
+        :\"\",\"name\":\"{{@Random}}\",\"orgPlan\":\"BASIC\",\"orgType\":\"PERSONAL\"\
+        ,\"version\":\"\"}"
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "DELETE:/api/v1/orgs/{{@OrgOrgplanBusinessCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "DELETE:/api/v1/orgs/{{@OrgOrgplanBusinessCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgplanBusinessCreateUserAInitAbact2_Response.data.id}}/users"
+      path: "GET:/api/v1/orgs/{id}/users"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgplanBusinessCreateUserAInitAbact2_Response.data.id}}/users"
+      path: "GET:/api/v1/orgs/{id}/users"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    scripts: []
+    lock: false
+    enumValues: null
+  - id: "ff808181689d2cf101689eb5655e0c28"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2c0baf"
+    resourceName: "OrgOrgplanEnterprise"
+    initScriptName: "OrgOrgplanEnterpriseCreateUserAInitAbact2"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/orgs"
+    typeThreeCreateEndpoint: null
+    createBody: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\"\
+      :\"{{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+      :\"{{@Random}}\",\"id\":\"\",\"inactive\":false,\"location\":\"{{@Random}}\"\
+      ,\"modifiedBy\":\"\",\"modifiedDate\":\"\",\"name\":\"{{@Random}}\",\"orgPlan\"\
+      :\"ENTERPRISE\",\"orgType\":\"PERSONAL\",\"version\":\"\"}"
+    deleteEndpoint: "DELETE:/api/v1/orgs/{{@OrgOrgplanEnterpriseCreateUserAInitAbact2_Response.data.id}}"
+    validations:
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/orgs/find-by-name/{{@OrgOrgplanEnterpriseCreateUserAInitAbact2_Response.data.name}}"
+      path: "GET:/api/v1/orgs/find-by-name/{name}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/orgs/find-by-name/{{@OrgOrgplanEnterpriseCreateUserAInitAbact2_Response.data.name}}"
+      path: "GET:/api/v1/orgs/find-by-name/{name}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgplanEnterpriseCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgplanEnterpriseCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "PUT:/api/v1/orgs/{{@OrgOrgplanEnterpriseCreateUserAInitAbact2_Response.data.id}}"
+      path: "PUT:/api/v1/orgs/{id}"
+      body: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\":\"\
+        {{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+        :\"{{@Random}}\",\"id\":\"{{@OrgOrgplanEnterpriseCreateUserAInitAbact2_Response.data.id}}\"\
+        ,\"inactive\":false,\"location\":\"{{@Random}}\",\"modifiedBy\":\"\",\"modifiedDate\"\
+        :\"\",\"name\":\"{{@Random}}\",\"orgPlan\":\"BASIC\",\"orgType\":\"PERSONAL\"\
+        ,\"version\":\"\"}"
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "PUT:/api/v1/orgs/{{@OrgOrgplanEnterpriseCreateUserAInitAbact2_Response.data.id}}"
+      path: "PUT:/api/v1/orgs/{id}"
+      body: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\":\"\
+        {{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+        :\"{{@Random}}\",\"id\":\"{{@OrgOrgplanEnterpriseCreateUserAInitAbact2_Response.data.id}}\"\
+        ,\"inactive\":false,\"location\":\"{{@Random}}\",\"modifiedBy\":\"\",\"modifiedDate\"\
+        :\"\",\"name\":\"{{@Random}}\",\"orgPlan\":\"BASIC\",\"orgType\":\"PERSONAL\"\
+        ,\"version\":\"\"}"
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "DELETE:/api/v1/orgs/{{@OrgOrgplanEnterpriseCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "DELETE:/api/v1/orgs/{{@OrgOrgplanEnterpriseCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgplanEnterpriseCreateUserAInitAbact2_Response.data.id}}/users"
+      path: "GET:/api/v1/orgs/{id}/users"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgplanEnterpriseCreateUserAInitAbact2_Response.data.id}}/users"
+      path: "GET:/api/v1/orgs/{id}/users"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    scripts: []
+    lock: false
+    enumValues: null
+  - id: "ff808181689d2cf101689eb565620c29"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2c0baf"
+    resourceName: "OrgOrgplanPayAsYouGo"
+    initScriptName: "OrgOrgplanPayAsYouGoCreateUserAInitAbact2"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/orgs"
+    typeThreeCreateEndpoint: null
+    createBody: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\"\
+      :\"{{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+      :\"{{@Random}}\",\"id\":\"\",\"inactive\":false,\"location\":\"{{@Random}}\"\
+      ,\"modifiedBy\":\"\",\"modifiedDate\":\"\",\"name\":\"{{@Random}}\",\"orgPlan\"\
+      :\"PAY_AS_YOU_GO\",\"orgType\":\"PERSONAL\",\"version\":\"\"}"
+    deleteEndpoint: "DELETE:/api/v1/orgs/{{@OrgOrgplanPayAsYouGoCreateUserAInitAbact2_Response.data.id}}"
+    validations:
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/orgs/find-by-name/{{@OrgOrgplanPayAsYouGoCreateUserAInitAbact2_Response.data.name}}"
+      path: "GET:/api/v1/orgs/find-by-name/{name}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/orgs/find-by-name/{{@OrgOrgplanPayAsYouGoCreateUserAInitAbact2_Response.data.name}}"
+      path: "GET:/api/v1/orgs/find-by-name/{name}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgplanPayAsYouGoCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgplanPayAsYouGoCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "PUT:/api/v1/orgs/{{@OrgOrgplanPayAsYouGoCreateUserAInitAbact2_Response.data.id}}"
+      path: "PUT:/api/v1/orgs/{id}"
+      body: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\":\"\
+        {{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+        :\"{{@Random}}\",\"id\":\"{{@OrgOrgplanPayAsYouGoCreateUserAInitAbact2_Response.data.id}}\"\
+        ,\"inactive\":false,\"location\":\"{{@Random}}\",\"modifiedBy\":\"\",\"modifiedDate\"\
+        :\"\",\"name\":\"{{@Random}}\",\"orgPlan\":\"BASIC\",\"orgType\":\"PERSONAL\"\
+        ,\"version\":\"\"}"
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "PUT:/api/v1/orgs/{{@OrgOrgplanPayAsYouGoCreateUserAInitAbact2_Response.data.id}}"
+      path: "PUT:/api/v1/orgs/{id}"
+      body: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\":\"\
+        {{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+        :\"{{@Random}}\",\"id\":\"{{@OrgOrgplanPayAsYouGoCreateUserAInitAbact2_Response.data.id}}\"\
+        ,\"inactive\":false,\"location\":\"{{@Random}}\",\"modifiedBy\":\"\",\"modifiedDate\"\
+        :\"\",\"name\":\"{{@Random}}\",\"orgPlan\":\"BASIC\",\"orgType\":\"PERSONAL\"\
+        ,\"version\":\"\"}"
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "DELETE:/api/v1/orgs/{{@OrgOrgplanPayAsYouGoCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "DELETE:/api/v1/orgs/{{@OrgOrgplanPayAsYouGoCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgplanPayAsYouGoCreateUserAInitAbact2_Response.data.id}}/users"
+      path: "GET:/api/v1/orgs/{id}/users"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgplanPayAsYouGoCreateUserAInitAbact2_Response.data.id}}/users"
+      path: "GET:/api/v1/orgs/{id}/users"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    scripts: []
+    lock: false
+    enumValues: null
+  - id: "ff808181689d2cf101689eb565660c2a"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2c0baf"
+    resourceName: "OrgOrgtypePersonal"
+    initScriptName: "OrgOrgtypePersonalCreateUserAInitAbact2"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/orgs"
+    typeThreeCreateEndpoint: null
+    createBody: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\"\
+      :\"{{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+      :\"{{@Random}}\",\"id\":\"\",\"inactive\":false,\"location\":\"{{@Random}}\"\
+      ,\"modifiedBy\":\"\",\"modifiedDate\":\"\",\"name\":\"{{@Random}}\",\"orgPlan\"\
+      :\"BASIC\",\"orgType\":\"PERSONAL\",\"version\":\"\"}"
+    deleteEndpoint: "DELETE:/api/v1/orgs/{{@OrgOrgtypePersonalCreateUserAInitAbact2_Response.data.id}}"
+    validations:
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/orgs/find-by-name/{{@OrgOrgtypePersonalCreateUserAInitAbact2_Response.data.name}}"
+      path: "GET:/api/v1/orgs/find-by-name/{name}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/orgs/find-by-name/{{@OrgOrgtypePersonalCreateUserAInitAbact2_Response.data.name}}"
+      path: "GET:/api/v1/orgs/find-by-name/{name}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgtypePersonalCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgtypePersonalCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "PUT:/api/v1/orgs/{{@OrgOrgtypePersonalCreateUserAInitAbact2_Response.data.id}}"
+      path: "PUT:/api/v1/orgs/{id}"
+      body: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\":\"\
+        {{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+        :\"{{@Random}}\",\"id\":\"{{@OrgOrgtypePersonalCreateUserAInitAbact2_Response.data.id}}\"\
+        ,\"inactive\":false,\"location\":\"{{@Random}}\",\"modifiedBy\":\"\",\"modifiedDate\"\
+        :\"\",\"name\":\"{{@Random}}\",\"orgPlan\":\"BASIC\",\"orgType\":\"PERSONAL\"\
+        ,\"version\":\"\"}"
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "PUT:/api/v1/orgs/{{@OrgOrgtypePersonalCreateUserAInitAbact2_Response.data.id}}"
+      path: "PUT:/api/v1/orgs/{id}"
+      body: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\":\"\
+        {{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+        :\"{{@Random}}\",\"id\":\"{{@OrgOrgtypePersonalCreateUserAInitAbact2_Response.data.id}}\"\
+        ,\"inactive\":false,\"location\":\"{{@Random}}\",\"modifiedBy\":\"\",\"modifiedDate\"\
+        :\"\",\"name\":\"{{@Random}}\",\"orgPlan\":\"BASIC\",\"orgType\":\"PERSONAL\"\
+        ,\"version\":\"\"}"
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "DELETE:/api/v1/orgs/{{@OrgOrgtypePersonalCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "DELETE:/api/v1/orgs/{{@OrgOrgtypePersonalCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgtypePersonalCreateUserAInitAbact2_Response.data.id}}/users"
+      path: "GET:/api/v1/orgs/{id}/users"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgtypePersonalCreateUserAInitAbact2_Response.data.id}}/users"
+      path: "GET:/api/v1/orgs/{id}/users"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    scripts: []
+    lock: false
+    enumValues: null
+  - id: "ff808181689d2cf101689eb5656a0c2b"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2c0baf"
+    resourceName: "OrgOrgtypeTeam"
+    initScriptName: "OrgOrgtypeTeamCreateUserAInitAbact2"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/orgs"
+    typeThreeCreateEndpoint: null
+    createBody: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\"\
+      :\"{{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+      :\"{{@Random}}\",\"id\":\"\",\"inactive\":false,\"location\":\"{{@Random}}\"\
+      ,\"modifiedBy\":\"\",\"modifiedDate\":\"\",\"name\":\"{{@Random}}\",\"orgPlan\"\
+      :\"BASIC\",\"orgType\":\"TEAM\",\"version\":\"\"}"
+    deleteEndpoint: "DELETE:/api/v1/orgs/{{@OrgOrgtypeTeamCreateUserAInitAbact2_Response.data.id}}"
+    validations:
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/orgs/find-by-name/{{@OrgOrgtypeTeamCreateUserAInitAbact2_Response.data.name}}"
+      path: "GET:/api/v1/orgs/find-by-name/{name}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/orgs/find-by-name/{{@OrgOrgtypeTeamCreateUserAInitAbact2_Response.data.name}}"
+      path: "GET:/api/v1/orgs/find-by-name/{name}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgtypeTeamCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgtypeTeamCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "PUT:/api/v1/orgs/{{@OrgOrgtypeTeamCreateUserAInitAbact2_Response.data.id}}"
+      path: "PUT:/api/v1/orgs/{id}"
+      body: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\":\"\
+        {{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+        :\"{{@Random}}\",\"id\":\"{{@OrgOrgtypeTeamCreateUserAInitAbact2_Response.data.id}}\"\
+        ,\"inactive\":false,\"location\":\"{{@Random}}\",\"modifiedBy\":\"\",\"modifiedDate\"\
+        :\"\",\"name\":\"{{@Random}}\",\"orgPlan\":\"BASIC\",\"orgType\":\"PERSONAL\"\
+        ,\"version\":\"\"}"
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "PUT:/api/v1/orgs/{{@OrgOrgtypeTeamCreateUserAInitAbact2_Response.data.id}}"
+      path: "PUT:/api/v1/orgs/{id}"
+      body: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\":\"\
+        {{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+        :\"{{@Random}}\",\"id\":\"{{@OrgOrgtypeTeamCreateUserAInitAbact2_Response.data.id}}\"\
+        ,\"inactive\":false,\"location\":\"{{@Random}}\",\"modifiedBy\":\"\",\"modifiedDate\"\
+        :\"\",\"name\":\"{{@Random}}\",\"orgPlan\":\"BASIC\",\"orgType\":\"PERSONAL\"\
+        ,\"version\":\"\"}"
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "DELETE:/api/v1/orgs/{{@OrgOrgtypeTeamCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "DELETE:/api/v1/orgs/{{@OrgOrgtypeTeamCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgtypeTeamCreateUserAInitAbact2_Response.data.id}}/users"
+      path: "GET:/api/v1/orgs/{id}/users"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgtypeTeamCreateUserAInitAbact2_Response.data.id}}/users"
+      path: "GET:/api/v1/orgs/{id}/users"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    scripts: []
+    lock: false
+    enumValues: null
+  - id: "ff808181689d2cf101689eb5656e0c2c"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2c0baf"
+    resourceName: "OrgOrgtypeEnterprise"
+    initScriptName: "OrgOrgtypeEnterpriseCreateUserAInitAbact2"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/orgs"
+    typeThreeCreateEndpoint: null
+    createBody: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\"\
+      :\"{{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+      :\"{{@Random}}\",\"id\":\"\",\"inactive\":false,\"location\":\"{{@Random}}\"\
+      ,\"modifiedBy\":\"\",\"modifiedDate\":\"\",\"name\":\"{{@Random}}\",\"orgPlan\"\
+      :\"BASIC\",\"orgType\":\"ENTERPRISE\",\"version\":\"\"}"
+    deleteEndpoint: "DELETE:/api/v1/orgs/{{@OrgOrgtypeEnterpriseCreateUserAInitAbact2_Response.data.id}}"
+    validations:
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/orgs/find-by-name/{{@OrgOrgtypeEnterpriseCreateUserAInitAbact2_Response.data.name}}"
+      path: "GET:/api/v1/orgs/find-by-name/{name}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/orgs/find-by-name/{{@OrgOrgtypeEnterpriseCreateUserAInitAbact2_Response.data.name}}"
+      path: "GET:/api/v1/orgs/find-by-name/{name}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgtypeEnterpriseCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgtypeEnterpriseCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "PUT:/api/v1/orgs/{{@OrgOrgtypeEnterpriseCreateUserAInitAbact2_Response.data.id}}"
+      path: "PUT:/api/v1/orgs/{id}"
+      body: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\":\"\
+        {{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+        :\"{{@Random}}\",\"id\":\"{{@OrgOrgtypeEnterpriseCreateUserAInitAbact2_Response.data.id}}\"\
+        ,\"inactive\":false,\"location\":\"{{@Random}}\",\"modifiedBy\":\"\",\"modifiedDate\"\
+        :\"\",\"name\":\"{{@Random}}\",\"orgPlan\":\"BASIC\",\"orgType\":\"PERSONAL\"\
+        ,\"version\":\"\"}"
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "PUT:/api/v1/orgs/{{@OrgOrgtypeEnterpriseCreateUserAInitAbact2_Response.data.id}}"
+      path: "PUT:/api/v1/orgs/{id}"
+      body: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\":\"\
+        {{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+        :\"{{@Random}}\",\"id\":\"{{@OrgOrgtypeEnterpriseCreateUserAInitAbact2_Response.data.id}}\"\
+        ,\"inactive\":false,\"location\":\"{{@Random}}\",\"modifiedBy\":\"\",\"modifiedDate\"\
+        :\"\",\"name\":\"{{@Random}}\",\"orgPlan\":\"BASIC\",\"orgType\":\"PERSONAL\"\
+        ,\"version\":\"\"}"
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "DELETE:/api/v1/orgs/{{@OrgOrgtypeEnterpriseCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "DELETE:/api/v1/orgs/{{@OrgOrgtypeEnterpriseCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgtypeEnterpriseCreateUserAInitAbact2_Response.data.id}}/users"
+      path: "GET:/api/v1/orgs/{id}/users"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgtypeEnterpriseCreateUserAInitAbact2_Response.data.id}}/users"
+      path: "GET:/api/v1/orgs/{id}/users"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    scripts: []
+    lock: false
+    enumValues: null
+  - id: "ff808181689d2cf101689eb565720c2d"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2c0baf"
+    resourceName: "PrimaryaccountAccounttypeSaving"
+    initScriptName: "PrimaryaccountAccounttypeSavingCreateUserAInitAbact2"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/primary-account/primary-account"
+    typeThreeCreateEndpoint: null
+    createBody: "{\"accountBalance\":\"{{@RandomInteger}}\",\"accountNumber\":\"{{@RandomInteger}}\"\
+      ,\"accountType\":\"SAVING\",\"createdBy\":\"\",\"createdDate\":\"\",\"id\":\"\
+      \",\"inactive\":false,\"modifiedBy\":\"\",\"modifiedDate\":\"\",\"version\"\
+      :\"\"}"
+    deleteEndpoint: "DELETE:/api/v1/primary-account/primary-account/{{@PrimaryaccountAccounttypeSavingCreateUserAInitAbact2_Response.data.id}}"
+    validations:
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/primary-account/primary-account/{{@PrimaryaccountAccounttypeSavingCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/primary-account/primary-account/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/primary-account/primary-account/{{@PrimaryaccountAccounttypeSavingCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/primary-account/primary-account/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "DELETE:/api/v1/primary-account/primary-account/{{@PrimaryaccountAccounttypeSavingCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/primary-account/primary-account/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "DELETE:/api/v1/primary-account/primary-account/{{@PrimaryaccountAccounttypeSavingCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/primary-account/primary-account/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    scripts: []
+    lock: false
+    enumValues: null
+  - id: "ff808181689d2cf101689eb565750c2e"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2c0baf"
+    resourceName: "PrimaryaccountAccounttypeCurrent"
+    initScriptName: "PrimaryaccountAccounttypeCurrentCreateUserAInitAbact2"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/primary-account/primary-account"
+    typeThreeCreateEndpoint: null
+    createBody: "{\"accountBalance\":\"{{@RandomInteger}}\",\"accountNumber\":\"{{@RandomInteger}}\"\
+      ,\"accountType\":\"CURRENT\",\"createdBy\":\"\",\"createdDate\":\"\",\"id\"\
+      :\"\",\"inactive\":false,\"modifiedBy\":\"\",\"modifiedDate\":\"\",\"version\"\
+      :\"\"}"
+    deleteEndpoint: "DELETE:/api/v1/primary-account/primary-account/{{@PrimaryaccountAccounttypeCurrentCreateUserAInitAbact2_Response.data.id}}"
+    validations:
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/primary-account/primary-account/{{@PrimaryaccountAccounttypeCurrentCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/primary-account/primary-account/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/primary-account/primary-account/{{@PrimaryaccountAccounttypeCurrentCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/primary-account/primary-account/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "DELETE:/api/v1/primary-account/primary-account/{{@PrimaryaccountAccounttypeCurrentCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/primary-account/primary-account/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "DELETE:/api/v1/primary-account/primary-account/{{@PrimaryaccountAccounttypeCurrentCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/primary-account/primary-account/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    scripts: []
+    lock: false
+    enumValues: null
+  - id: "ff808181689d2cf101689eb565790c2f"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2c0baf"
+    resourceName: "PrimaryaccountAccounttypeCredit"
+    initScriptName: "PrimaryaccountAccounttypeCreditCreateUserAInitAbact2"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/primary-account/primary-account"
+    typeThreeCreateEndpoint: null
+    createBody: "{\"accountBalance\":\"{{@RandomInteger}}\",\"accountNumber\":\"{{@RandomInteger}}\"\
+      ,\"accountType\":\"CREDIT\",\"createdBy\":\"\",\"createdDate\":\"\",\"id\":\"\
+      \",\"inactive\":false,\"modifiedBy\":\"\",\"modifiedDate\":\"\",\"version\"\
+      :\"\"}"
+    deleteEndpoint: "DELETE:/api/v1/primary-account/primary-account/{{@PrimaryaccountAccounttypeCreditCreateUserAInitAbact2_Response.data.id}}"
+    validations:
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/primary-account/primary-account/{{@PrimaryaccountAccounttypeCreditCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/primary-account/primary-account/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/primary-account/primary-account/{{@PrimaryaccountAccounttypeCreditCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/primary-account/primary-account/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "DELETE:/api/v1/primary-account/primary-account/{{@PrimaryaccountAccounttypeCreditCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/primary-account/primary-account/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "DELETE:/api/v1/primary-account/primary-account/{{@PrimaryaccountAccounttypeCreditCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/primary-account/primary-account/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    scripts: []
+    lock: false
+    enumValues: null
+  - id: "ff808181689d2cf101689eb5657c0c30"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2c0baf"
+    resourceName: "RecenttransactionTransactiontypeDeposit"
+    initScriptName: "RecenttransactionTransactiontypeDepositCreateUserAInitAbact2"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/recenttransactions"
+    typeThreeCreateEndpoint: null
+    createBody: "{\"confirmed\":false,\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+      :\"{{@Random}}\",\"id\":\"\",\"inactive\":false,\"location\":\"{{@Random}}\"\
+      ,\"modifiedBy\":\"\",\"modifiedDate\":\"\",\"transactionType\":\"DEPOSIT\",\"\
+      version\":\"\"}"
+    deleteEndpoint: "DELETE:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeDepositCreateUserAInitAbact2_Response.data.id}}"
+    validations:
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeDepositCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeDepositCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "DELETE:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeDepositCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "DELETE:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeDepositCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    scripts: []
+    lock: false
+    enumValues: null
+  - id: "ff808181689d2cf101689eb565800c31"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2c0baf"
+    resourceName: "RecenttransactionTransactiontypeWithdraw"
+    initScriptName: "RecenttransactionTransactiontypeWithdrawCreateUserAInitAbact2"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/recenttransactions"
+    typeThreeCreateEndpoint: null
+    createBody: "{\"confirmed\":false,\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+      :\"{{@Random}}\",\"id\":\"\",\"inactive\":false,\"location\":\"{{@Random}}\"\
+      ,\"modifiedBy\":\"\",\"modifiedDate\":\"\",\"transactionType\":\"WITHDRAW\"\
+      ,\"version\":\"\"}"
+    deleteEndpoint: "DELETE:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeWithdrawCreateUserAInitAbact2_Response.data.id}}"
+    validations:
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeWithdrawCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeWithdrawCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "DELETE:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeWithdrawCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "DELETE:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeWithdrawCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    scripts: []
+    lock: false
+    enumValues: null
+  - id: "ff808181689d2cf101689eb565830c32"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2c0baf"
+    resourceName: "RecenttransactionTransactiontypeCharge"
+    initScriptName: "RecenttransactionTransactiontypeChargeCreateUserAInitAbact2"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/recenttransactions"
+    typeThreeCreateEndpoint: null
+    createBody: "{\"confirmed\":false,\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+      :\"{{@Random}}\",\"id\":\"\",\"inactive\":false,\"location\":\"{{@Random}}\"\
+      ,\"modifiedBy\":\"\",\"modifiedDate\":\"\",\"transactionType\":\"CHARGE\",\"\
+      version\":\"\"}"
+    deleteEndpoint: "DELETE:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeChargeCreateUserAInitAbact2_Response.data.id}}"
+    validations:
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeChargeCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeChargeCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "DELETE:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeChargeCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "DELETE:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeChargeCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    scripts: []
+    lock: false
+    enumValues: null
+  - id: "ff808181689d2cf101689eb565860c33"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2c0baf"
+    resourceName: "RecenttransactionTransactiontypeAtm"
+    initScriptName: "RecenttransactionTransactiontypeAtmCreateUserAInitAbact2"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/recenttransactions"
+    typeThreeCreateEndpoint: null
+    createBody: "{\"confirmed\":false,\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+      :\"{{@Random}}\",\"id\":\"\",\"inactive\":false,\"location\":\"{{@Random}}\"\
+      ,\"modifiedBy\":\"\",\"modifiedDate\":\"\",\"transactionType\":\"ATM\",\"version\"\
+      :\"\"}"
+    deleteEndpoint: "DELETE:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeAtmCreateUserAInitAbact2_Response.data.id}}"
+    validations:
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeAtmCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeAtmCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "DELETE:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeAtmCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "DELETE:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeAtmCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    scripts: []
+    lock: false
+    enumValues: null
+  - id: "ff808181689d2cf101689eb565890c34"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2c0baf"
+    resourceName: "RecenttransactionTransactiontypeOnline"
+    initScriptName: "RecenttransactionTransactiontypeOnlineCreateUserAInitAbact2"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/recenttransactions"
+    typeThreeCreateEndpoint: null
+    createBody: "{\"confirmed\":false,\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+      :\"{{@Random}}\",\"id\":\"\",\"inactive\":false,\"location\":\"{{@Random}}\"\
+      ,\"modifiedBy\":\"\",\"modifiedDate\":\"\",\"transactionType\":\"ONLINE\",\"\
+      version\":\"\"}"
+    deleteEndpoint: "DELETE:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeOnlineCreateUserAInitAbact2_Response.data.id}}"
+    validations:
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeOnlineCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeOnlineCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "DELETE:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeOnlineCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "DELETE:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeOnlineCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    scripts: []
+    lock: false
+    enumValues: null
+  - id: "ff808181689d2cf101689eb5658d0c35"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2c0baf"
+    resourceName: "RecenttransactionTransactiontypePos"
+    initScriptName: "RecenttransactionTransactiontypePosCreateUserAInitAbact2"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/recenttransactions"
+    typeThreeCreateEndpoint: null
+    createBody: "{\"confirmed\":false,\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+      :\"{{@Random}}\",\"id\":\"\",\"inactive\":false,\"location\":\"{{@Random}}\"\
+      ,\"modifiedBy\":\"\",\"modifiedDate\":\"\",\"transactionType\":\"POS\",\"version\"\
+      :\"\"}"
+    deleteEndpoint: "DELETE:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypePosCreateUserAInitAbact2_Response.data.id}}"
+    validations:
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypePosCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypePosCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "DELETE:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypePosCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "DELETE:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypePosCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    scripts: []
+    lock: false
+    enumValues: null
+  - id: "ff808181689d2cf101689eb565900c36"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2c0baf"
+    resourceName: "RecenttransactionTransactiontypeTransfer"
+    initScriptName: "RecenttransactionTransactiontypeTransferCreateUserAInitAbact2"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/recenttransactions"
+    typeThreeCreateEndpoint: null
+    createBody: "{\"confirmed\":false,\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+      :\"{{@Random}}\",\"id\":\"\",\"inactive\":false,\"location\":\"{{@Random}}\"\
+      ,\"modifiedBy\":\"\",\"modifiedDate\":\"\",\"transactionType\":\"TRANSFER\"\
+      ,\"version\":\"\"}"
+    deleteEndpoint: "DELETE:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeTransferCreateUserAInitAbact2_Response.data.id}}"
+    validations:
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeTransferCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeTransferCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "DELETE:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeTransferCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "DELETE:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeTransferCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    scripts: []
+    lock: false
+    enumValues: null
+  - id: "ff808181689d2cf101689eb565940c37"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2c0baf"
+    resourceName: "RecenttransactionTransactiontypeCheck"
+    initScriptName: "RecenttransactionTransactiontypeCheckCreateUserAInitAbact2"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/recenttransactions"
+    typeThreeCreateEndpoint: null
+    createBody: "{\"confirmed\":false,\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+      :\"{{@Random}}\",\"id\":\"\",\"inactive\":false,\"location\":\"{{@Random}}\"\
+      ,\"modifiedBy\":\"\",\"modifiedDate\":\"\",\"transactionType\":\"CHECK\",\"\
+      version\":\"\"}"
+    deleteEndpoint: "DELETE:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeCheckCreateUserAInitAbact2_Response.data.id}}"
+    validations:
+    - userAuth: "UserB"
+      endpoint: "GET:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeCheckCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "GET:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeCheckCreateUserAInitAbact2_Response.data.id}}"
+      path: "GET:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserB"
+      endpoint: "DELETE:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeCheckCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserC"
+      endpoint: "DELETE:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeCheckCreateUserAInitAbact2_Response.data.id}}"
+      path: "DELETE:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    scripts: []
+    lock: false
+    enumValues: null
+- type: "abact3"
+  assertions:
+  - "Create:@StatusCode == 200 OR @StatusCode == 201"
+  - "Disallowed:@StatusCode == 401 OR @StatusCode == 403"
+  tags:
+  - "FX Top 10 - API Vulnerability"
+  - "Data_Access_Control"
+  severity: "Major"
+  database: null
+  inactive: true
+  matches:
+  - name: null
+    value: null
+    methods: null
+    denyRoles: "UserB,UserC"
+    allowRoles: "UserA"
+    pathPatterns: null
+    resourceSamples: null
+    queryParams: null
+    bodyProperties: null
+  authors: ""
+  abacResources: null
+- type: "abact1positive"
+  assertions:
+  - "Create:@StatusCode == 200 OR @StatusCode == 201"
+  - "Allowed:@StatusCode == 200 AND @Response.errors == false"
+  tags:
+  - "FX Top 10 - API Vulnerability"
+  - "Data_Access_Control"
+  severity: "Major"
+  database: null
+  inactive: true
+  matches:
+  - name: null
+    value: null
+    methods: null
+    denyRoles: "UserA"
+    allowRoles: "UserA"
+    pathPatterns: null
+    resourceSamples: null
+    queryParams: null
+    bodyProperties: null
+  authors: ""
+  abacResources:
+  - id: "ff808181689d2cf101689eb565b70c38"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2e0bb1"
+    resourceName: "Branch"
+    initScriptName: "BranchCreateUserAInitAbact1Positive"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/branches"
+    typeThreeCreateEndpoint: null
+    createBody: "{\n  \"access\" : \"{{@Random}}\",\n  \"atmAtBranch\" : \"{{@Random}}\"\
+      ,\n  \"branchMediatedServiceName\" : \"{{@Random}}\",\n  \"branchName\" : \"\
+      {{@Random}}\",\n  \"branchType\" : \"{{@Random}}\",\n  \"createdBy\" : \"\"\
+      ,\n  \"createdDate\" : \"\",\n  \"customerSegment\" : \"{{@Random}}\",\n  \"\
+      faxNumber\" : \"{{@Random}}\",\n  \"id\" : \"\",\n  \"inactive\" : false,\n\
+      \  \"modifiedBy\" : \"\",\n  \"modifiedDate\" : \"\",\n  \"version\" : \"\"\n\
+      }"
+    deleteEndpoint: "DELETE:/api/v1/branches/{{@BranchCreateUserAInitAbact1Positive_Response.data.id}}"
+    validations:
+    - userAuth: "UserA"
+      endpoint: "GET:/api/v1/branches/{{@BranchCreateUserAInitAbact1Positive_Response.data.id}}"
+      path: "GET:/api/v1/branches/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserA"
+      endpoint: "DELETE:/api/v1/branches/{{@BranchCreateUserAInitAbact1Positive_Response.data.id}}"
+      path: "DELETE:/api/v1/branches/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    scripts: []
+    lock: false
+    enumValues: null
+  - id: "ff808181689d2cf101689eb565bb0c39"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2e0bb1"
+    resourceName: "Org"
+    initScriptName: "OrgCreateUserAInitAbact1Positive"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/orgs"
+    typeThreeCreateEndpoint: null
+    createBody: "{\n  \"billingEmail\" : \"{{@Faker.internet.emailAddress}}\",\n \
+      \ \"company\" : \"{{@Faker.company.name}}\",\n  \"createdBy\" : \"\",\n  \"\
+      createdDate\" : \"\",\n  \"description\" : \"{{@Random}}\",\n  \"id\" : \"\"\
+      ,\n  \"inactive\" : false,\n  \"location\" : \"{{@Random}}\",\n  \"modifiedBy\"\
+      \ : \"\",\n  \"modifiedDate\" : \"\",\n  \"name\" : \"{{@Random}}\",\n  \"orgPlan\"\
+      \ : \"BASIC\",\n  \"orgType\" : \"PERSONAL\",\n  \"version\" : \"\"\n}"
+    deleteEndpoint: "DELETE:/api/v1/orgs/{{@OrgCreateUserAInitAbact1Positive_Response.data.id}}"
+    validations:
+    - userAuth: "UserA"
+      endpoint: "GET:/api/v1/orgs/find-by-name/{{@OrgCreateUserAInitAbact1Positive_Response.data.name}}"
+      path: "GET:/api/v1/orgs/find-by-name/{name}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserA"
+      endpoint: "GET:/api/v1/orgs/{{@OrgCreateUserAInitAbact1Positive_Response.data.id}}"
+      path: "GET:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserA"
+      endpoint: "PUT:/api/v1/orgs/{{@OrgCreateUserAInitAbact1Positive_Response.data.id}}"
+      path: "PUT:/api/v1/orgs/{id}"
+      body: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\":\"\
+        {{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+        :\"{{@Random}}\",\"id\":\"{{@OrgCreateUserAInitAbact1Positive_Response.data.id}}\"\
+        ,\"inactive\":false,\"location\":\"{{@Random}}\",\"modifiedBy\":\"\",\"modifiedDate\"\
+        :\"\",\"name\":\"{{@Random}}\",\"orgPlan\":\"BASIC\",\"orgType\":\"PERSONAL\"\
+        ,\"version\":\"\"}"
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserA"
+      endpoint: "DELETE:/api/v1/orgs/{{@OrgCreateUserAInitAbact1Positive_Response.data.id}}"
+      path: "DELETE:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserA"
+      endpoint: "GET:/api/v1/orgs/{{@OrgCreateUserAInitAbact1Positive_Response.data.id}}/users"
+      path: "GET:/api/v1/orgs/{id}/users"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    scripts: []
+    lock: false
+    enumValues: null
+  - id: "ff808181689d2cf101689eb565bf0c3a"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2e0bb1"
+    resourceName: "PrimaryAccount"
+    initScriptName: "PrimaryAccountCreateUserAInitAbact1Positive"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/primary-account/primary-account"
+    typeThreeCreateEndpoint: null
+    createBody: "{\n  \"accountBalance\" : \"{{@RandomInteger}}\",\n  \"accountNumber\"\
+      \ : \"{{@RandomInteger}}\",\n  \"accountType\" : \"CREDIT\",\n  \"createdBy\"\
+      \ : \"\",\n  \"createdDate\" : \"\",\n  \"id\" : \"\",\n  \"inactive\" : false,\n\
+      \  \"modifiedBy\" : \"\",\n  \"modifiedDate\" : \"\",\n  \"version\" : \"\"\n\
+      }"
+    deleteEndpoint: "DELETE:/api/v1/primary-account/primary-account/{{@PrimaryAccountCreateUserAInitAbact1Positive_Response.data.id}}"
+    validations:
+    - userAuth: "UserA"
+      endpoint: "GET:/api/v1/primary-account/primary-account/{{@PrimaryAccountCreateUserAInitAbact1Positive_Response.data.id}}"
+      path: "GET:/api/v1/primary-account/primary-account/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserA"
+      endpoint: "DELETE:/api/v1/primary-account/primary-account/{{@PrimaryAccountCreateUserAInitAbact1Positive_Response.data.id}}"
+      path: "DELETE:/api/v1/primary-account/primary-account/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    scripts: []
+    lock: false
+    enumValues: null
+  - id: "ff808181689d2cf101689eb565c20c3b"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2e0bb1"
+    resourceName: "RecentTransaction"
+    initScriptName: "RecentTransactionCreateUserAInitAbact1Positive"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/recenttransactions"
+    typeThreeCreateEndpoint: null
+    createBody: "{\n  \"confirmed\" : false,\n  \"createdBy\" : \"\",\n  \"createdDate\"\
+      \ : \"\",\n  \"description\" : \"{{@Random}}\",\n  \"id\" : \"\",\n  \"inactive\"\
+      \ : false,\n  \"location\" : \"{{@Random}}\",\n  \"modifiedBy\" : \"\",\n  \"\
+      modifiedDate\" : \"\",\n  \"transactionType\" : \"CHECK\",\n  \"version\" :\
+      \ \"\"\n}"
+    deleteEndpoint: "DELETE:/api/v1/recenttransactions/{{@RecentTransactionCreateUserAInitAbact1Positive_Response.data.id}}"
+    validations:
+    - userAuth: "UserA"
+      endpoint: "GET:/api/v1/recenttransactions/{{@RecentTransactionCreateUserAInitAbact1Positive_Response.data.id}}"
+      path: "GET:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserA"
+      endpoint: "DELETE:/api/v1/recenttransactions/{{@RecentTransactionCreateUserAInitAbact1Positive_Response.data.id}}"
+      path: "DELETE:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    scripts: []
+    lock: false
+    enumValues: null
+  - id: "ff808181689d2cf101689eb565c50c3c"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2e0bb1"
+    resourceName: "Users"
+    initScriptName: "UsersCreateUserAInitAbact1Positive"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/users/enterprise-sign-up"
+    typeThreeCreateEndpoint: null
+    createBody: "{\n  \"accountNonExpired\" : false,\n  \"accountNonLocked\" : false,\n\
+      \  \"company\" : \"{{@Faker.company.name}}\",\n  \"createdBy\" : \"\",\n  \"\
+      createdDate\" : \"\",\n  \"credentialsNonExpired\" : false,\n  \"email\" : \"\
+      {{@Faker.internet.emailAddress}}\",\n  \"enabled\" : false,\n  \"id\" : \"\"\
+      ,\n  \"inactive\" : false,\n  \"jobTitle\" : \"{{@Faker.job.title}}\",\n  \"\
+      location\" : \"{{@Random}}\",\n  \"modifiedBy\" : \"\",\n  \"modifiedDate\"\
+      \ : \"\",\n  \"name\" : \"{{@Random}}\",\n  \"password\" : \"{{@Random}}\",\n\
+      \  \"username\" : \"{{@Faker.name.username}}\",\n  \"version\" : \"\"\n}"
+    deleteEndpoint: null
+    validations: []
+    scripts: []
+    lock: false
+    enumValues: null
+- type: "abact2positive"
+  assertions:
+  - "Create:@StatusCode == 200 OR @StatusCode == 201"
+  - "Allowed:@StatusCode == 200 AND @Response.errors == false"
+  tags:
+  - "FX Top 10 - API Vulnerability"
+  - "Data_Access_Control"
+  severity: "Major"
+  database: null
+  inactive: true
+  matches:
+  - name: null
+    value: null
+    methods: null
+    denyRoles: "UserA"
+    allowRoles: "UserA"
+    pathPatterns: null
+    resourceSamples: null
+    queryParams: null
+    bodyProperties: null
+  authors: ""
+  abacResources:
+  - id: "ff808181689d2cf101689eb565e60c3d"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2e0bb2"
+    resourceName: "OrgOrgplanFreeProTeamBasicBusinessEnterprisePayAsYouGo"
+    initScriptName: "OrgOrgplanFreeProTeamBasicBusinessEnterprisePayAsYouGoCreateUserAInitAbact2Positive"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/orgs"
+    typeThreeCreateEndpoint: null
+    createBody: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\"\
+      :\"{{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+      :\"{{@Random}}\",\"id\":\"\",\"inactive\":false,\"location\":\"{{@Random}}\"\
+      ,\"modifiedBy\":\"\",\"modifiedDate\":\"\",\"name\":\"{{@Random}}\",\"orgPlan\"\
+      :\"FREE__PRO__TEAM__BASIC__BUSINESS__ENTERPRISE__PAY_AS_YOU_GO\",\"orgType\"\
+      :\"PERSONAL\",\"version\":\"\"}"
+    deleteEndpoint: "DELETE:/api/v1/orgs/{{@OrgOrgplanFreeProTeamBasicBusinessEnterprisePayAsYouGoCreateUserAInitAbact2Positive_Response.data.id}}"
+    validations:
+    - userAuth: "UserA"
+      endpoint: "GET:/api/v1/orgs/find-by-name/{{@OrgOrgplanFreeProTeamBasicBusinessEnterprisePayAsYouGoCreateUserAInitAbact2Positive_Response.data.name}}"
+      path: "GET:/api/v1/orgs/find-by-name/{name}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserA"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgplanFreeProTeamBasicBusinessEnterprisePayAsYouGoCreateUserAInitAbact2Positive_Response.data.id}}"
+      path: "GET:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserA"
+      endpoint: "PUT:/api/v1/orgs/{{@OrgOrgplanFreeProTeamBasicBusinessEnterprisePayAsYouGoCreateUserAInitAbact2Positive_Response.data.id}}"
+      path: "PUT:/api/v1/orgs/{id}"
+      body: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\":\"\
+        {{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+        :\"{{@Random}}\",\"id\":\"{{@OrgOrgplanFreeProTeamBasicBusinessEnterprisePayAsYouGoCreateUserAInitAbact2Positive_Response.data.id}}\"\
+        ,\"inactive\":false,\"location\":\"{{@Random}}\",\"modifiedBy\":\"\",\"modifiedDate\"\
+        :\"\",\"name\":\"{{@Random}}\",\"orgPlan\":\"BASIC\",\"orgType\":\"PERSONAL\"\
+        ,\"version\":\"\"}"
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserA"
+      endpoint: "DELETE:/api/v1/orgs/{{@OrgOrgplanFreeProTeamBasicBusinessEnterprisePayAsYouGoCreateUserAInitAbact2Positive_Response.data.id}}"
+      path: "DELETE:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserA"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgplanFreeProTeamBasicBusinessEnterprisePayAsYouGoCreateUserAInitAbact2Positive_Response.data.id}}/users"
+      path: "GET:/api/v1/orgs/{id}/users"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    scripts: []
+    lock: false
+    enumValues: null
+  - id: "ff808181689d2cf101689eb565ea0c3e"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2e0bb2"
+    resourceName: "OrgOrgtypePersonalTeamEnterprise"
+    initScriptName: "OrgOrgtypePersonalTeamEnterpriseCreateUserAInitAbact2Positive"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/orgs"
+    typeThreeCreateEndpoint: null
+    createBody: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\"\
+      :\"{{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+      :\"{{@Random}}\",\"id\":\"\",\"inactive\":false,\"location\":\"{{@Random}}\"\
+      ,\"modifiedBy\":\"\",\"modifiedDate\":\"\",\"name\":\"{{@Random}}\",\"orgPlan\"\
+      :\"BASIC\",\"orgType\":\"PERSONAL__TEAM__ENTERPRISE\",\"version\":\"\"}"
+    deleteEndpoint: "DELETE:/api/v1/orgs/{{@OrgOrgtypePersonalTeamEnterpriseCreateUserAInitAbact2Positive_Response.data.id}}"
+    validations:
+    - userAuth: "UserA"
+      endpoint: "GET:/api/v1/orgs/find-by-name/{{@OrgOrgtypePersonalTeamEnterpriseCreateUserAInitAbact2Positive_Response.data.name}}"
+      path: "GET:/api/v1/orgs/find-by-name/{name}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserA"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgtypePersonalTeamEnterpriseCreateUserAInitAbact2Positive_Response.data.id}}"
+      path: "GET:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserA"
+      endpoint: "PUT:/api/v1/orgs/{{@OrgOrgtypePersonalTeamEnterpriseCreateUserAInitAbact2Positive_Response.data.id}}"
+      path: "PUT:/api/v1/orgs/{id}"
+      body: "{\"billingEmail\":\"{{@Faker.internet.emailAddress}}\",\"company\":\"\
+        {{@Faker.company.name}}\",\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+        :\"{{@Random}}\",\"id\":\"{{@OrgOrgtypePersonalTeamEnterpriseCreateUserAInitAbact2Positive_Response.data.id}}\"\
+        ,\"inactive\":false,\"location\":\"{{@Random}}\",\"modifiedBy\":\"\",\"modifiedDate\"\
+        :\"\",\"name\":\"{{@Random}}\",\"orgPlan\":\"BASIC\",\"orgType\":\"PERSONAL\"\
+        ,\"version\":\"\"}"
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserA"
+      endpoint: "DELETE:/api/v1/orgs/{{@OrgOrgtypePersonalTeamEnterpriseCreateUserAInitAbact2Positive_Response.data.id}}"
+      path: "DELETE:/api/v1/orgs/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserA"
+      endpoint: "GET:/api/v1/orgs/{{@OrgOrgtypePersonalTeamEnterpriseCreateUserAInitAbact2Positive_Response.data.id}}/users"
+      path: "GET:/api/v1/orgs/{id}/users"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    scripts: []
+    lock: false
+    enumValues: null
+  - id: "ff808181689d2cf101689eb565ed0c3f"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2e0bb2"
+    resourceName: "PrimaryaccountAccounttypeSavingCurrentCredit"
+    initScriptName: "PrimaryaccountAccounttypeSavingCurrentCreditCreateUserAInitAbact2Positive"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/primary-account/primary-account"
+    typeThreeCreateEndpoint: null
+    createBody: "{\"accountBalance\":\"{{@RandomInteger}}\",\"accountNumber\":\"{{@RandomInteger}}\"\
+      ,\"accountType\":\"SAVING__CURRENT__CREDIT\",\"createdBy\":\"\",\"createdDate\"\
+      :\"\",\"id\":\"\",\"inactive\":false,\"modifiedBy\":\"\",\"modifiedDate\":\"\
+      \",\"version\":\"\"}"
+    deleteEndpoint: "DELETE:/api/v1/primary-account/primary-account/{{@PrimaryaccountAccounttypeSavingCurrentCreditCreateUserAInitAbact2Positive_Response.data.id}}"
+    validations:
+    - userAuth: "UserA"
+      endpoint: "GET:/api/v1/primary-account/primary-account/{{@PrimaryaccountAccounttypeSavingCurrentCreditCreateUserAInitAbact2Positive_Response.data.id}}"
+      path: "GET:/api/v1/primary-account/primary-account/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserA"
+      endpoint: "DELETE:/api/v1/primary-account/primary-account/{{@PrimaryaccountAccounttypeSavingCurrentCreditCreateUserAInitAbact2Positive_Response.data.id}}"
+      path: "DELETE:/api/v1/primary-account/primary-account/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    scripts: []
+    lock: false
+    enumValues: null
+  - id: "ff808181689d2cf101689eb565f00c40"
+    createdBy: null
+    createdDate: null
+    modifiedBy: null
+    modifiedDate: null
+    version: null
+    inactive: false
+    generatorId: "ff808181689d2cf101689eb2fc2e0bb2"
+    resourceName: "RecenttransactionTransactiontypeDepositWithdrawChargeAtmOnlinePosTransferCheck"
+    initScriptName: "RecenttransactionTransactiontypeDepositWithdrawChargeAtmOnlinePosTransferCheckCreateUserAInitAbact2Positive"
+    createUserAuth: "UserA"
+    createEndpoint: "POST:/api/v1/recenttransactions"
+    typeThreeCreateEndpoint: null
+    createBody: "{\"confirmed\":false,\"createdBy\":\"\",\"createdDate\":\"\",\"description\"\
+      :\"{{@Random}}\",\"id\":\"\",\"inactive\":false,\"location\":\"{{@Random}}\"\
+      ,\"modifiedBy\":\"\",\"modifiedDate\":\"\",\"transactionType\":\"DEPOSIT__WITHDRAW__CHARGE__ATM__ONLINE__POS__TRANSFER__CHECK\"\
+      ,\"version\":\"\"}"
+    deleteEndpoint: "DELETE:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeDepositWithdrawChargeAtmOnlinePosTransferCheckCreateUserAInitAbact2Positive_Response.data.id}}"
+    validations:
+    - userAuth: "UserA"
+      endpoint: "GET:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeDepositWithdrawChargeAtmOnlinePosTransferCheckCreateUserAInitAbact2Positive_Response.data.id}}"
+      path: "GET:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    - userAuth: "UserA"
+      endpoint: "DELETE:/api/v1/recenttransactions/{{@RecenttransactionTransactiontypeDepositWithdrawChargeAtmOnlinePosTransferCheckCreateUserAInitAbact2Positive_Response.data.id}}"
+      path: "DELETE:/api/v1/recenttransactions/{id}"
+      body: null
+      validationType: "Disallow"
+      inactive: true
+      lock: false
+    scripts: []
+    lock: false
+    enumValues: null
+- type: "DDOS"
+  assertions:
+  - "@StatusCode != 200"
+  - "@StatusCode != 401"
+  - "@StatusCode != 404"
+  tags:
+  - "[PCI DSS 3.0] 6.5.2"
+  - "FX Top 10 - API Vulnerability"
+  - "Intrusive"
+  severity: "Major"
+  database: null
+  inactive: true
+  matches:
+  - name: "pageSize, page_size, maxResults, max_results"
+    value: null
+    methods: null
+    denyRoles: null
+    allowRoles: null
+    pathPatterns: null
+    resourceSamples: null
+    queryParams: null
+    bodyProperties: null
+  authors: ""
+  abacResources: null
+- type: "sql_injection_timebound"
+  assertions:
+  - "@ResponseTime < 7000 OR @ResponseTime > 10000"
+  - "@StatusCode != 404"
+  tags:
+  - "OWASP A1"
+  - "[PCI DSS 3.0] 6.5.1"
+  - "OWASP - OTG-INPVAL-005"
+  - "FX Top 10 - API Vulnerability"
+  - "Intrusive"
+  severity: "Major"
+  database:
+    name: "MySQL"
+    version: "5.7"
+  inactive: true
+  matches:
+  - name: null
+    value: null
+    methods: null
+    denyRoles: null
+    allowRoles: null
+    pathPatterns: null
+    resourceSamples: "User-Create"
+    queryParams: null
+    bodyProperties: "id,name"
+  authors: ""
+  abacResources: null
+- type: "sql_injection2_timebound"
+  assertions:
+  - "@ResponseTime < 7000 OR @ResponseTime > 10000"
+  - "@StatusCode != 404"
+  tags:
+  - "OWASP A1"
+  - "[PCI DSS 3.0] 6.5.1"
+  - "OWASP - OTG-INPVAL-005"
+  - "FX Top 10 - API Vulnerability"
+  - "Injection"
+  severity: "Major"
+  database:
+    name: "MySQL"
+    version: "5.7"
+  inactive: true
+  matches:
+  - name: null
+    value: null
+    methods: null
+    denyRoles: null
+    allowRoles: null
+    pathPatterns: null
+    resourceSamples: "User-Create"
+    queryParams: null
+    bodyProperties: "id,name"
+  authors: ""
+  abacResources: null
+- type: "no_sql_injection_timebound"
+  assertions:
+  - "@ResponseTime < 7000 OR @ResponseTime > 10000"
+  - "@StatusCode != 404"
+  tags:
+  - "OWASP A1"
+  - "[PCI DSS 3.0] 6.5.1"
+  - "OWASP - OTG-INPVAL-005"
+  - "FX Top 10 - API Vulnerability"
+  - "Injection"
+  severity: "Major"
+  database:
+    name: "MongoDB"
+    version: "4.0"
+  inactive: true
+  matches:
+  - name: null
+    value: null
+    methods: null
+    denyRoles: null
+    allowRoles: null
+    pathPatterns: null
+    resourceSamples: "User-Create"
+    queryParams: null
+    bodyProperties: "id,name"
+  authors: ""
+  abacResources: null
+- type: "sla"
+  assertions:
+  - "@StatusCode == 200 AND @ResponseTime < 1000"
+  tags:
+  - "SLA"
+  severity: "Major"
+  database: null
+  inactive: true
+  matches: []
+  authors: ""
+  abacResources: null
+- type: "invalid_datatype"
+  assertions:
+  - "@StatusCode != 401"
+  - "@StatusCode != 404"
+  tags:
+  - "OWASP - OTG-BUSLOGIC-001"
+  - "Fuzz"
+  severity: "Major"
+  database: null
+  inactive: true
+  matches: []
+  authors: ""
+  abacResources: null
+- type: "no_params"
+  assertions:
+  - "@StatusCode == 200"
+  tags:
+  - " OWASP - OTG-CONFIG-006"
+  - "Fuzz"
+  severity: "Major"
+  database: null
+  inactive: true
+  matches: []
+  authors: ""
+  abacResources: null
+- type: "special_chars "
+  assertions:
+  - "@StatusCode != 200"
+  - "@StatusCode != 401"
+  - "@StatusCode != 404"
+  - "@StatusCode != 500"
+  tags:
+  - "OWASP - OTG-BUSLOGIC-001"
+  - "Fuzz"
+  severity: "Major"
+  database: null
+  inactive: true
+  matches: []
+  authors: ""
+  abacResources: null
+- type: "null_value"
+  assertions:
+  - "@StatusCode != 200"
+  - "@StatusCode != 401"
+  - "@StatusCode != 404"
+  - "@StatusCode != 500"
+  tags:
+  - "OWASP - OTG-BUSLOGIC-001"
+  - "Fuzz"
+  severity: "Major"
+  database: null
+  inactive: true
+  matches: []
+  authors: ""
+  abacResources: null
